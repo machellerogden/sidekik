@@ -5,4 +5,4 @@ const pull = require('pull-stream');
 
 const tokenizer = require('./lib/tokenizer');
 
-pull(tokenizer, pull.drain(console.log));
+pull(tokenizer(), pull.drain(console.log));
