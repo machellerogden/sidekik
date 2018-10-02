@@ -1,4 +1,4 @@
-(foo 123 (bar "baz"))
+(foo 123 (bar (foo 123 (bar "baz"))))
 (foo 123 (bar "baz"))
 (foo 123 (bar "baz"))
 (foo 123 (bar "baz"))
