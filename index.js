@@ -5,14 +5,7 @@ const parser = require('./lib/parser');
 const traverser = require('./lib/traverser');
 const transformer = require('./lib/transformer');
 const emitter = require('./lib/emitter');
-
-function compiler(input) {
-    let tokens = tokenizer(input);
-    let ast = parser(tokens);
-    let program = transformer(ast);
-    let output = emitter(program);
-    return output;
-}
+const compiler = require('./lib/compiler');
 
 module.exports = {
     tokenizer,

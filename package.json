@@ -7,15 +7,12 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha \"test/**/*.spec.js\""
+    "test": "tape 'test/**/*.spec.js'"
   },
   "keywords": [],
   "author": "Mac Heller-Ogden",
   "license": "MIT",
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "needful": "0.0.5",
     "pull-split": "^0.2.0",
@@ -24,6 +21,7 @@
     "pull-through": "^1.0.18",
     "pull-utf8-decoder": "^1.0.2",
     "pull-window": "^2.1.4",
-    "stream-to-pull-stream": "^1.7.2"
+    "stream-to-pull-stream": "^1.7.2",
+    "tape": "^4.9.1"
   }
 }

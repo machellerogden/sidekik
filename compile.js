@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
+const toStream = require('pull-stream-to-stream');
 const pull = require('pull-stream');
+const utf8 = require('pull-utf8-decoder');
+const split = require('pull-split');
 
-const tokenizer = require('./lib/tokenizer');
-const parser = require('./lib/parser');
+const compiler = require('./lib/compiler');
 
-const { inspect } = require('util');
-const log = pull.drain(v => console.log(inspect(v, { depth: null, colors: true })));
-
-pull(tokenizer(), parser(), log);
+process.stdin.pipe(toStream.sink(pull(utf8(), split(), compiler()))).pipe(process.stdout);
