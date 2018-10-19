@@ -4,7 +4,7 @@ const test = require('tape-async');
 
 const { tokenizer, compiler } = require('..');
 
-test('tokenizer', async function (t) {
+test('tokenizer', async (t) => {
     const input  = '(foo 123 (bar "baz"))';
     const output = [ {
         type: 'paren',
@@ -37,23 +37,32 @@ test('tokenizer', async function (t) {
         type: 'paren',
         value: ')'
     } ];
+    let i = 0;
     for await (const result of tokenizer([ input ])) {
-        t.deepEqual(result, output);
+        t.deepEqual(result, output[i]);
+        i++;
     }
     t.end();
 });
 
-//test('compiler', function (t) {
-    //const input  = '(foo 123 (bar "baz"))';
-    //const output = 'foo(123, bar("baz"));';
-    //pull(
-        //pull.values([ input ]),
-        //compiler(),
-        //pull.collect((err, ary) => {
-            //t.notOk(err);
-            //t.deepEqual(ary, output);
-            //t.end();
-        //})
-    //);
-//});
+test('compiler', async (t) => {
+    const input  = `(foo 123 (bar (foo 123 (bar "baz"))))
+(foo 123 (bar "baz"))
+(foo 123 (bar "baz"))
+(foo 123 (bar "baz"))
+(foo 123 (bar "baz"))`;
+    const output = [
+        'foo(123, bar(foo(123, bar("baz"))));',
+        'foo(123, bar("baz"));',
+        'foo(123, bar("baz"));',
+        'foo(123, bar("baz"));',
+        'foo(123, bar("baz"));'
+    ];
+    let i = 0;
+    for await (const result of compiler([ input ])) {
+        t.deepEqual(result, output[i]);
+        i++;
+    }
+    t.end();
+});
 
