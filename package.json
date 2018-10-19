@@ -1,9 +1,9 @@
 {
-  "name": "sidekik",
+  "name": "lisprima",
   "version": "0.0.0",
   "description": "",
   "bin": {
-    "sidekik": "./compile.js"
+    "lisprima": "./compile.js"
   },
   "main": "index.js",
   "scripts": {
