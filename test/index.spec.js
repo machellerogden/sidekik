@@ -1,11 +1,10 @@
 'use strict';
 
-const test = require('tape');
+const test = require('tape-async');
 
-const pull = require('pull-stream');
 const { tokenizer, compiler } = require('..');
 
-test('tokenizer', function (t) {
+test('tokenizer', async function (t) {
     const input  = '(foo 123 (bar "baz"))';
     const output = [ {
         type: 'paren',
@@ -38,15 +37,10 @@ test('tokenizer', function (t) {
         type: 'paren',
         value: ')'
     } ];
-    pull(
-        pull.values([ input ]),
-        tokenizer(),
-        pull.collect((err, ary) => {
-            t.notOk(err);
-            t.deepEqual(ary, output);
-            t.end();
-        })
-    );
+    for await (const result of tokenizer([ input ])) {
+        t.deepEqual(result, output);
+    }
+    t.end();
 });
 
 //test('compiler', function (t) {

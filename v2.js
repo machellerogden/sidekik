@@ -1,8 +1,44 @@
+#!/usr/bin/env node
+
 'use strict';
 
-module.exports = tokenizer;
+const { pipe } = require('needful');
+const streamify = require('async-stream-generator');
+const matchers = require('./lib/matchers');
 
-async function* tokenizer(lines) {
+async function* split(chunks) {
+    let previous = '';
+
+    for await (const chunk of chunks) {
+        previous += chunk;
+        let eolIndex;
+
+        while ((eolIndex = previous.indexOf('\n')) >= 0) {
+            const line = previous.slice(0, eolIndex);
+            yield line;
+            previous = previous.slice(eolIndex + 1);
+        }
+    }
+
+    if (previous.length > 0) {
+        yield previous;
+    }
+}
+
+async function* tap(chunks) {
+    for await (const chunk of chunks) {
+        console.log(chunk);
+        yield chunk;
+    }
+}
+
+async function* stringify(chunks) {
+    for await (const chunk of chunks) {
+        yield JSON.stringify(chunk);
+    }
+}
+
+async function* tokenize(lines) {
     for await (const line of lines) {
         const chars = line.split('');
         let i = 0;
@@ -47,3 +83,5 @@ async function* tokenizer(lines) {
         }
     }
 }
+
+pipe(split, tokenize, /*tap,*/ stringify, streamify)(process.stdin).pipe(process.stdout);
