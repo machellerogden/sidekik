@@ -29,7 +29,8 @@ test('tokenizer', async (t) => {
         type: 'whitespace'
     }, {
         type: 'string',
-        value: 'baz'
+        value: 'baz',
+        raw: '"baz"'
     }, {
         type: 'paren',
         value: ')'
