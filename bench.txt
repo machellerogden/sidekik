@@ -1,0 +1,6 @@
+Time to process a 5MB file.
+Benchmarked with: Intel(R) Core(TM) i7-8850H CPU @ 2.60GHz
+
+real	0m2.602s
+user	0m2.678s
+sys	0m0.190s
