@@ -1,1 +1,2 @@
-(const foo "bar")
+(const foo "hello world")
+(.log console foo)
