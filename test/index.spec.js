@@ -29,8 +29,7 @@ test('tokenizer', async (t) => {
         type: 'whitespace'
     }, {
         type: 'string',
-        value: 'baz',
-        raw: '"baz"'
+        value: 'baz'
     }, {
         type: 'paren',
         value: ')'
@@ -49,15 +48,11 @@ test('tokenizer', async (t) => {
 test('compiler', async (t) => {
     const input  = `(foo 123 (bar (foo 123 (bar "baz"))))
 (foo 123 (bar "baz"))
-(foo 123 (bar "baz"))
-(foo 123 (bar "baz"))
-(foo 123 (bar "baz"))`;
+(const foo "bar")`;
     const output = [
         'foo(123, bar(foo(123, bar("baz"))));',
         'foo(123, bar("baz"));',
-        'foo(123, bar("baz"));',
-        'foo(123, bar("baz"));',
-        'foo(123, bar("baz"));'
+        'const foo = "bar";'
     ];
     let i = 0;
     for await (const result of compiler([ input ])) {
