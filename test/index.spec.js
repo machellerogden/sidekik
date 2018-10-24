@@ -10,7 +10,7 @@ test('tokenizer', async (t) => {
         type: 'paren',
         value: '('
     }, {
-        type: 'ref',
+        type: 'name',
         value: 'foo'
     }, {
         type: 'whitespace'
@@ -23,7 +23,7 @@ test('tokenizer', async (t) => {
         type: 'paren',
         value: '('
     }, {
-        type: 'ref',
+        type: 'name',
         value: 'bar'
     }, {
         type: 'whitespace'

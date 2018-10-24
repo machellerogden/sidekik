@@ -24,4 +24,8 @@ async function* split(chunks) {
     }
 }
 
-pipe(split, compiler, streamify)(process.stdin).pipe(process.stdout);
+try {
+    pipe(split, compiler, streamify)(process.stdin).pipe(process.stdout);
+} catch (e) {
+    console.log(e && e.message || e);
+}
