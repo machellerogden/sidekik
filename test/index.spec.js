@@ -16,7 +16,7 @@ test('tokenizer', async (t) => {
         type: 'whitespace'
     }, {
         type: 'number',
-        value: '123'
+        value: 123
     }, {
         type: 'whitespace'
     }, {

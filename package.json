@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "async-stream-generator": "^1.0.3",
-    "forast": "^0.1.1",
     "needful": "0.0.5"
   }
 }
