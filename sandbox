@@ -1,2 +1,5 @@
-(const foo "hello world")
-(.log console foo)
+#(const foo "hello world")
+#(.log console foo)
+#(foo 123 (bar (foo 123 (bar "baz"))))
+(foo 123 (bar "baz" quz))
+#(.keys Object foo)
