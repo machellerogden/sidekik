@@ -38,8 +38,8 @@ test('tokenizer', async (t) => {
         value: ')'
     } ];
     let i = 0;
-    for await (const result of tokenizer([ input ])) {
-        t.deepEqual(result, output[i]);
+    for await (const token of tokenizer([ input ])) {
+        t.deepEqual(token, output[i]);
         i++;
     }
     t.end();
