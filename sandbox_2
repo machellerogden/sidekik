@@ -1,1 +1,1 @@
-(.log console {:bar {:bim ["bam" "boom"]}})
+(.log console {:bar {:bim ["bam" "boom" {:bip "fzz" :bing [ "grr" "ugh" "gaa" ]}]}})
