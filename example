@@ -1,0 +1,8 @@
+(const foo
+       {:bar ["bam"
+              "boom"]
+        :qux {:xyzzy "abc"
+              :plink ["plank"
+                      "plunk"]}})
+
+(.log console foo)
