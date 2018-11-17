@@ -1,6 +1,6 @@
 # Lisprima
 
-> a lisp(ish) interpreter
+> transpile a stream of lisp-like syntax to javascript
 
 Lisprima transpiles a lisp-like syntax into plain old JavaScript. That is all. Lisprima has zero interest being a true lisp.
 
