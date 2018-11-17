@@ -4,28 +4,27 @@
 const { pipe } = require('needful');
 const streamify = require('async-stream-generator');
 const compiler = require('./lib/compiler');
+const split = require('./lib/split');
 
-async function* split(chunks) {
-    let previous = '';
+if (process.stdin.isTTY) {
 
-    for await (const chunk of chunks) {
-        previous += chunk;
-        let eolIndex;
-
-        while ((eolIndex = previous.indexOf('\n')) >= 0) {
-            const line = previous.slice(0, eolIndex);
-            yield line;
-            previous = previous.slice(eolIndex + 1);
+    async function* linebreak(statements) {
+        for await (const statement of statements) {
+            yield `${statement}\n`;
         }
     }
 
-    if (previous.length > 0) {
-        yield previous;
-    }
-}
+    require('repl').start({
+        input: pipe(split, compiler, linebreak, streamify)(process.stdin),
+        output: process.stdout
+    });
 
-try {
-    pipe(split, compiler, streamify)(process.stdin).pipe(process.stdout);
-} catch (e) {
-    console.log(e && e.message || e);
+} else {
+
+    try {
+        pipe(split, compiler, streamify)(process.stdin).pipe(process.stdout);
+    } catch (e) {
+        console.log(e && e.message || e);
+    }
+
 }

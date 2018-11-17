@@ -1,3 +1,4 @@
+; run this example: cat example | ./lisprima | node
 (const foo
        {:bar ["bam"
               "boom"]

@@ -13,7 +13,7 @@ Lisprima transpiles a lisp-like syntax into plain old JavaScript. That is all. L
 ## Give it a try
 
 ```sh
-cat ./test_file | ./compile.js
+cat ./example | ./lisprima
 ```
 
 ## Syntax
