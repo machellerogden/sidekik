@@ -4,7 +4,7 @@ const test = require('tape-async');
 
 const { tokenizer, compiler } = require('..');
 
-test('tokenizer', async (t) => {
+test('tokenizer', async t => {
     t.plan(11);
     const input  = '(foo 123 (bar "baz"))';
     const output = [ {
@@ -46,7 +46,7 @@ test('tokenizer', async (t) => {
     t.end();
 });
 
-test('compiler', async (t) => {
+test('compiler', async t => {
     t.plan(3);
     const input  = `(foo 123 (bar (foo 123 (bar "baz"))))
 (foo 123 (bar "baz"))
@@ -64,7 +64,7 @@ test('compiler', async (t) => {
     t.end();
 });
 
-test('calling member functions with objects and arrays', async (t) => {
+test('calling member functions with objects and arrays', async t => {
     t.plan(1);
     const input  = `(.log console {:foo "bar"} [ "a" "b" ])`;
     const output = [
@@ -78,7 +78,7 @@ test('calling member functions with objects and arrays', async (t) => {
     t.end();
 });
 
-test('declaring objects and arrays', async (t) => {
+test('declaring objects and arrays', async t => {
     t.plan(2);
     const input  = `(const foo {:foo "bar"})
 (let bar [ 1 2 3 ])`;
@@ -94,3 +94,30 @@ test('declaring objects and arrays', async (t) => {
     t.end();
 });
 
+test('function declaration', async t => {
+    t.plan(1);
+    const input  = `(function echo [x] x)`;
+    const output = [
+        'function echo (x) { return x; }'
+    ];
+    let i = 0;
+    for await (const result of compiler([ input ])) {
+        t.deepEqual(result, output[i]);
+        i++;
+    }
+    t.end();
+});
+
+//test('declarative assignment of function expression', async t => {
+    //t.plan(1);
+    //const input  = `(const echo (function [x] x))`;
+    //const output = [
+        //'const foo = function (x) { return x; };'
+    //];
+    //let i = 0;
+    //for await (const result of compiler([ input ])) {
+        //t.deepEqual(result, output[i]);
+        //i++;
+    //}
+    //t.end();
+//});
